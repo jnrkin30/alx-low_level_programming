@@ -1,53 +1,42 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
 
 /**
- * _strlen - returns the length of a string
- * @s: string s
- * Return: length of string
- */
-int _strlen(char *s)
-{
-	int len = 0;
-
-	while (*s++)
-		len++;
-
-	return (len);
-}
-
-/**
- * argstostr - concatenates all the arguments of your program
- * @ac: argument count
- * @av: argument vector
- * Return: concatenated string
+ * argstostr - converts array of strings to one string with newline separators
+ *
+ * @ac: number of strings
+ * @av: array of strings
+ *
+ * Return: char * to concatenated string
  */
 char *argstostr(int ac, char **av)
 {
-	int i, j, len, total;
-	int m = 0;
-	char *ptr;
+	int size = 0, i;
+	char *ptr, *ret, *retptr;
 
-	if (!ac || !av)
+	if (ac == 0 || !av)
 		return (NULL);
-	total = 0;
+
 	for (i = 0; i < ac; i++)
 	{
-		len = _strlen(av[i]) + 1;
-		total += len;
+		ptr = av[i];
+		while (*ptr++)
+			size++;
 	}
-	ptr = malloc(sizeof(char) * total + 1);
-	if (!ptr)
+
+	ret = malloc(size + 1 + ac);
+	if (!ret)
 		return (NULL);
+
+	retptr = ret;
 	for (i = 0; i < ac; i++)
 	{
-		len = _strlen(av[i]);
-		for (j = 0; j < len; j++, m++)
+		for (ptr = av[i]; *ptr; ptr++, retptr++)
 		{
-			ptr[m] = av[i][j];
+			*retptr = *ptr;
 		}
-		ptr[m++] = '\n';
+		*retptr++ = '\n';
 	}
-	ptr[m] = '\0';
-	return (ptr);
+
+	return (ret);
 }

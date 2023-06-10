@@ -1,19 +1,20 @@
 #include "main.h"
-
 /**
- * _strlen - a function that returns the length of a string
- * @s: char input
- * Return: length of the input string
+ * _strlen - returns the length of a string
+ * @s: string
+ * Return: length
  */
 int _strlen(char *s)
 {
-	int i = 1, sum = 0;
-	char pl = s[0];
+	int longi = 0;
 
-	while (pl != '\0')
+
+	while (*s != '\0')
 	{
-		sum++;
-		pl = s[i++];
+		longi++;
+		s++;
 	}
-	return (sum);
+
+
+	return (longi);
 }
